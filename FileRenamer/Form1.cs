@@ -123,6 +123,11 @@ namespace FileRenamer
             }
         }
 
+        /// <summary>
+        /// 불러오기 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnLoad_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = openFileDialog.ShowDialog();
@@ -171,12 +176,22 @@ namespace FileRenamer
             }
         }
 
+        /// <summary>
+        /// 목록 지우기 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnClearList_Click(object sender, EventArgs e)
         {
             mArrayList.Clear();
             listView.Items.Clear();
         }
 
+        /// <summary>
+        /// 원래대로 복구 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnRestore_Click(object sender, EventArgs e)
         {
             foreach (FileObject file in mArrayList)
@@ -190,6 +205,11 @@ namespace FileRenamer
             RefreshList();
         }
 
+        /// <summary>
+        /// 이름 추가(앞) 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNameAddFront_Click(object sender, EventArgs e)
         {
             using (NameForm nameForm = new NameForm())
@@ -212,6 +232,11 @@ namespace FileRenamer
             }
         }
 
+        /// <summary>
+        /// 이름 추가(뒤) 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNameAddBack_Click(object sender, EventArgs e)
         {
             using (NameForm nameForm = new NameForm())
@@ -234,6 +259,11 @@ namespace FileRenamer
             }
         }
 
+        /// <summary>
+        /// 이름 지우기 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNameClear_Click(object sender, EventArgs e)
         {
             foreach (FileObject file in mArrayList)
@@ -242,26 +272,115 @@ namespace FileRenamer
             RefreshList();
         }
 
+        /// <summary>
+        /// 이름 변경(특정 위치)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNameClearExt_Click(object sender, EventArgs e)
         {
+            using (NameForm2 nameForm = new NameForm2())
+            {
+                nameForm.Owner = this;
 
+                DialogResult result = nameForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    if (!string.IsNullOrEmpty(mStrDlgReturn))
+                    {
+                        // mStrDlgReturn 데이터 스플릿
+                        // [0] = 대상 문자열
+                        // [1] = 변경 문자열
+                        string[] strToken = mStrDlgReturn.Split(',');
+
+                        if (strToken.Length == 2)
+                        {
+                            foreach (FileObject file in mArrayList)
+                            {
+                                file.FileName = file.FileName.Replace(strToken[0], strToken[1]);
+                            }
+                        }
+
+                        RefreshList();
+                    }
+                    mStrDlgReturn = string.Empty;
+                }
+            }
         }
 
+        /// <summary>
+        /// 자릿수 맞추기 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNumFix_Click(object sender, EventArgs e)
         {
-
+            
         }
 
+        /// <summary>
+        /// 번호 붙이기 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNumAdd_Click(object sender, EventArgs e)
         {
+            using (NumberForm numForm = new NumberForm())
+            {
+                numForm.Owner = this;
+                DialogResult result = numForm.ShowDialog();
 
+                if (result == DialogResult.OK)
+                {
+                    if (!string.IsNullOrEmpty(mStrDlgReturn))
+                    {
+                        // mStrDlgReturn 데이터 스플릿
+                        // [0] = 숫자를 붙이는 방향 (0 : 앞, 1 : 뒤)
+                        // [1] = 자릿수
+                        // [2] = 시작수
+                        string[] strToken = mStrDlgReturn.Split(',');
+
+                        if (strToken.Length == 3)
+                        {
+                            string strTmp = string.Empty;
+                            int nDirect = int.Parse(strToken[0]);
+                            int nDigit = int.Parse(strToken[1]);
+                            int nStart = int.Parse(strToken[2]);
+                            string strFormat = string.Format("D{0}", nDigit);
+                            strFormat = "{0,0:" + strFormat + "}";
+                            
+
+                            foreach (FileObject file in mArrayList)
+                            {
+                                if (nDirect == 0)
+                                    file.FileName = string.Format(strFormat, nStart++) + file.FileName;
+                                else
+                                    file.FileName += string.Format(strFormat, nStart++);
+                            }
+                        }
+
+                        RefreshList();
+                    }
+                    mStrDlgReturn = string.Empty;
+                }
+            }
         }
 
+        /// <summary>
+        /// 선택항목 위로 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSelUp_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// 확장자 변경 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnChangeExtension_Click(object sender, EventArgs e)
         {
             using (NameForm nameForm = new NameForm())
@@ -284,11 +403,21 @@ namespace FileRenamer
             }
         }
 
+        /// <summary>
+        /// 선택항목 아래로 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSelDown_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// 확장자 삭제 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDelExtension_Click(object sender, EventArgs e)
         {
             foreach (FileObject file in mArrayList)
@@ -297,11 +426,21 @@ namespace FileRenamer
             RefreshList();
         }
 
+        /// <summary>
+        /// 변경사항 적용 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnApply_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// 메뉴 - 보기 - 전체 경로 표시 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuViewFullPath_Click(object sender, EventArgs e)
         {
             if (menuViewFullPath.Checked)
@@ -312,6 +451,11 @@ namespace FileRenamer
             menuViewFullPath.Checked = !menuViewFullPath.Checked;
         }
 
+        /// <summary>
+        /// 메뉴 - 보기 - 파일 크기 표시 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuViewFileSize_Click(object sender, EventArgs e)
         {
             if (menuViewFileSize.Checked)
@@ -322,6 +466,11 @@ namespace FileRenamer
             menuViewFileSize.Checked = !menuViewFileSize.Checked;
         }
 
+        /// <summary>
+        /// 메뉴 - 보기 - 변경 시간 표시 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuViewChangeTime_Click(object sender, EventArgs e)
         {
             if (menuViewChangeTime.Checked)
@@ -332,6 +481,11 @@ namespace FileRenamer
             menuViewChangeTime.Checked = !menuViewChangeTime.Checked;
         }
 
+        /// <summary>
+        /// 메뉴 - 보기 - 생성 시각 표시 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuViewCreateTime_Click(object sender, EventArgs e)
         {
             if (menuViewCreateTime.Checked)
@@ -342,6 +496,11 @@ namespace FileRenamer
             menuViewCreateTime.Checked = !menuViewCreateTime.Checked;
         }
 
+        /// <summary>
+        /// 메뉴 - 파일 - 파일 추가 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuFileAdd_Click(object sender, EventArgs e)
         {
             BtnLoad_Click(null, null);

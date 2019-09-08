@@ -229,7 +229,7 @@
             this.btnLoad.Location = new System.Drawing.Point(785, 27);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(216, 40);
-            this.btnLoad.TabIndex = 2;
+            this.btnLoad.TabIndex = 0;
             this.btnLoad.Text = "불러오기";
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.BtnLoad_Click);
@@ -274,7 +274,7 @@
             this.btnNameClearExt.Name = "btnNameClearExt";
             this.btnNameClearExt.Size = new System.Drawing.Size(106, 40);
             this.btnNameClearExt.TabIndex = 6;
-            this.btnNameClearExt.Text = "이름 지우기\r\n(특정 위치)";
+            this.btnNameClearExt.Text = "이름 변경\r\n(특정 위치)";
             this.btnNameClearExt.UseVisualStyleBackColor = true;
             this.btnNameClearExt.Click += new System.EventHandler(this.BtnNameClearExt_Click);
             // 
@@ -292,7 +292,7 @@
             this.btnNumFix.Location = new System.Drawing.Point(785, 211);
             this.btnNumFix.Name = "btnNumFix";
             this.btnNumFix.Size = new System.Drawing.Size(106, 40);
-            this.btnNumFix.TabIndex = 8;
+            this.btnNumFix.TabIndex = 7;
             this.btnNumFix.Text = "자릿수 맞추기";
             this.btnNumFix.UseVisualStyleBackColor = true;
             this.btnNumFix.Click += new System.EventHandler(this.BtnNumFix_Click);
@@ -303,7 +303,7 @@
             this.btnNumAdd.Location = new System.Drawing.Point(895, 211);
             this.btnNumAdd.Name = "btnNumAdd";
             this.btnNumAdd.Size = new System.Drawing.Size(106, 40);
-            this.btnNumAdd.TabIndex = 9;
+            this.btnNumAdd.TabIndex = 8;
             this.btnNumAdd.Text = "번호 붙이기";
             this.btnNumAdd.UseVisualStyleBackColor = true;
             this.btnNumAdd.Click += new System.EventHandler(this.BtnNumAdd_Click);
@@ -314,7 +314,7 @@
             this.btnClearList.Location = new System.Drawing.Point(785, 73);
             this.btnClearList.Name = "btnClearList";
             this.btnClearList.Size = new System.Drawing.Size(106, 40);
-            this.btnClearList.TabIndex = 10;
+            this.btnClearList.TabIndex = 1;
             this.btnClearList.Text = "목록 지우기";
             this.btnClearList.UseVisualStyleBackColor = true;
             this.btnClearList.Click += new System.EventHandler(this.BtnClearList_Click);
@@ -325,7 +325,7 @@
             this.btnRestore.Location = new System.Drawing.Point(895, 73);
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(106, 40);
-            this.btnRestore.TabIndex = 11;
+            this.btnRestore.TabIndex = 2;
             this.btnRestore.Text = "원래대로 복구";
             this.btnRestore.UseVisualStyleBackColor = true;
             this.btnRestore.Click += new System.EventHandler(this.BtnRestore_Click);
@@ -347,7 +347,7 @@
             this.btnChangeExtension.Location = new System.Drawing.Point(895, 257);
             this.btnChangeExtension.Name = "btnChangeExtension";
             this.btnChangeExtension.Size = new System.Drawing.Size(106, 40);
-            this.btnChangeExtension.TabIndex = 13;
+            this.btnChangeExtension.TabIndex = 10;
             this.btnChangeExtension.Text = "확장자 변경";
             this.btnChangeExtension.UseVisualStyleBackColor = true;
             this.btnChangeExtension.Click += new System.EventHandler(this.BtnChangeExtension_Click);
@@ -358,7 +358,7 @@
             this.btnSelUp.Location = new System.Drawing.Point(785, 257);
             this.btnSelUp.Name = "btnSelUp";
             this.btnSelUp.Size = new System.Drawing.Size(106, 40);
-            this.btnSelUp.TabIndex = 14;
+            this.btnSelUp.TabIndex = 9;
             this.btnSelUp.Text = "선택항목 위로";
             this.btnSelUp.UseVisualStyleBackColor = true;
             this.btnSelUp.Click += new System.EventHandler(this.BtnSelUp_Click);
@@ -369,7 +369,7 @@
             this.btnSelDown.Location = new System.Drawing.Point(785, 303);
             this.btnSelDown.Name = "btnSelDown";
             this.btnSelDown.Size = new System.Drawing.Size(106, 40);
-            this.btnSelDown.TabIndex = 15;
+            this.btnSelDown.TabIndex = 11;
             this.btnSelDown.Text = "선택항목 아래로";
             this.btnSelDown.UseVisualStyleBackColor = true;
             this.btnSelDown.Click += new System.EventHandler(this.BtnSelDown_Click);
@@ -380,7 +380,7 @@
             this.btnApply.Location = new System.Drawing.Point(785, 349);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(216, 40);
-            this.btnApply.TabIndex = 16;
+            this.btnApply.TabIndex = 13;
             this.btnApply.Text = "변경사항 적용";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.BtnApply_Click);

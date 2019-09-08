@@ -75,6 +75,18 @@
     <Compile Include="NameForm.Designer.cs">
       <DependentUpon>NameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NameForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NameForm2.Designer.cs">
+      <DependentUpon>NameForm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NumberForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumberForm.Designer.cs">
+      <DependentUpon>NumberForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -82,6 +94,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NameForm.resx">
       <DependentUpon>NameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NameForm2.resx">
+      <DependentUpon>NameForm2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumberForm.resx">
+      <DependentUpon>NumberForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

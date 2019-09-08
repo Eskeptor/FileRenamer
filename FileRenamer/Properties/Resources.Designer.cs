@@ -133,7 +133,7 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
-        ///   이름 지우기
+        ///   이름 변경
         ///(특정 위치)과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string String_Btn_Name_Clear_Ext {
@@ -184,6 +184,15 @@ namespace FileRenamer.Properties {
         internal static string String_Btn_SelectItem_Up {
             get {
                 return ResourceManager.GetString("String_Btn_SelectItem_Up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   파일 {0}에 번호를 붙입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Label_AddNumber {
+            get {
+                return ResourceManager.GetString("String_Label_AddNumber", resourceCulture);
             }
         }
         
@@ -278,6 +287,15 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
+        ///   번호 붙이기과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Title_AddNumber {
+            get {
+                return ResourceManager.GetString("String_Title_AddNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   이름 추가(뒤)과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string String_Title_FormType_AddNameBack {
@@ -301,6 +319,24 @@ namespace FileRenamer.Properties {
         internal static string String_Title_FormType_ChangeExtension {
             get {
                 return ResourceManager.GetString("String_Title_FormType_ChangeExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   대상 문자열과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_TItle_NameForm_Title1 {
+            get {
+                return ResourceManager.GetString("String_TItle_NameForm_Title1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   바꿀 문자열과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Title_NameForm_Title2 {
+            get {
+                return ResourceManager.GetString("String_Title_NameForm_Title2", resourceCulture);
             }
         }
     }

@@ -17,6 +17,10 @@ namespace FileRenamer
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 폼 생성 타입을 설정
+        /// </summary>
+        /// <param name="formType">폼 타입</param>
         public void SetFormType(Global.FormType formType)
         {
             switch (formType)
@@ -36,6 +40,11 @@ namespace FileRenamer
             }
         }
 
+        /// <summary>
+        /// 확인 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NameFrmBtnOK_Click(object sender, EventArgs e)
         {
             ((mainForm)(Owner)).mStrDlgReturn = nameFrmEdit.Text;
@@ -43,6 +52,11 @@ namespace FileRenamer
             Close();
         }
 
+        /// <summary>
+        /// 취소 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NameFrmBtnCancel_Click(object sender, EventArgs e)
         {
             Close();

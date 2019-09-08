@@ -38,7 +38,7 @@
             // 
             this.nameFrmEdit.Location = new System.Drawing.Point(12, 48);
             this.nameFrmEdit.Name = "nameFrmEdit";
-            this.nameFrmEdit.Size = new System.Drawing.Size(371, 21);
+            this.nameFrmEdit.Size = new System.Drawing.Size(372, 21);
             this.nameFrmEdit.TabIndex = 0;
             // 
             // nameFrmLblContext
@@ -52,7 +52,7 @@
             // 
             // nameFrmBtnCancel
             // 
-            this.nameFrmBtnCancel.Location = new System.Drawing.Point(297, 87);
+            this.nameFrmBtnCancel.Location = new System.Drawing.Point(298, 91);
             this.nameFrmBtnCancel.Name = "nameFrmBtnCancel";
             this.nameFrmBtnCancel.Size = new System.Drawing.Size(86, 33);
             this.nameFrmBtnCancel.TabIndex = 2;
@@ -62,10 +62,10 @@
             // 
             // nameFrmBtnOK
             // 
-            this.nameFrmBtnOK.Location = new System.Drawing.Point(205, 87);
+            this.nameFrmBtnOK.Location = new System.Drawing.Point(206, 91);
             this.nameFrmBtnOK.Name = "nameFrmBtnOK";
             this.nameFrmBtnOK.Size = new System.Drawing.Size(86, 33);
-            this.nameFrmBtnOK.TabIndex = 3;
+            this.nameFrmBtnOK.TabIndex = 1;
             this.nameFrmBtnOK.Text = "확인";
             this.nameFrmBtnOK.UseVisualStyleBackColor = true;
             this.nameFrmBtnOK.Click += new System.EventHandler(this.NameFrmBtnOK_Click);
