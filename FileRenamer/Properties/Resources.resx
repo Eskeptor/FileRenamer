@@ -132,11 +132,8 @@
   <data name="String_Btn_Load" xml:space="preserve">
     <value>불러오기</value>
   </data>
-  <data name="String_Btn_Name_Add_Back" xml:space="preserve">
-    <value>이름 추가(뒤)</value>
-  </data>
-  <data name="String_Btn_Name_Add_Front" xml:space="preserve">
-    <value>이름 추가(앞)</value>
+  <data name="String_Btn_Name_Add" xml:space="preserve">
+    <value>이름 추가</value>
   </data>
   <data name="String_Btn_Name_Clear" xml:space="preserve">
     <value>이름 지우기</value>
@@ -154,6 +151,9 @@
   <data name="String_Btn_Restore" xml:space="preserve">
     <value>원래대로 복구</value>
   </data>
+  <data name="String_Btn_SelectItem_Del" xml:space="preserve">
+    <value>선택항목 삭제</value>
+  </data>
   <data name="String_Btn_SelectItem_Down" xml:space="preserve">
     <value>선택항목 아래로</value>
   </data>
@@ -163,8 +163,8 @@
   <data name="String_Label_AddNumber" xml:space="preserve">
     <value>파일 {0}에 번호를 붙입니다.</value>
   </data>
-  <data name="String_Label_FormType_AddNameBack" xml:space="preserve">
-    <value>파일의 뒤쪽에 이름을 추가합니다.</value>
+  <data name="String_Label_FormType_AddName" xml:space="preserve">
+    <value>파일에 이름을 추가합니다.</value>
   </data>
   <data name="String_Label_FormType_AddNameFront" xml:space="preserve">
     <value>파일의 앞쪽에 이름을 추가합니다.</value>
@@ -196,8 +196,8 @@
   <data name="String_Title_AddNumber" xml:space="preserve">
     <value>번호 붙이기</value>
   </data>
-  <data name="String_Title_FormType_AddNameBack" xml:space="preserve">
-    <value>이름 추가(뒤)</value>
+  <data name="String_Title_FormType_AddName" xml:space="preserve">
+    <value>이름 추가</value>
   </data>
   <data name="String_Title_FormType_AddNameFront" xml:space="preserve">
     <value>이름 추가(앞)</value>

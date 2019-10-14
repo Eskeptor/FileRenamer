@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FileRenamer
 {
-    class FileObject
+    class FileObject : ICloneable
     {
         public string FileName { get; set; }              // 파일명
         public string FilePath { get; set; }              // 파일경로
@@ -49,7 +49,6 @@ namespace FileRenamer
             FilePath = strPath.Substring(0, nLastSeparator + 1);
             BackupFilePath = FilePath;
 
-            int nLength = strPath.Length;
             int nExtensionSeparator = strPath.LastIndexOf(".");
             FileName = strPath.Substring(nLastSeparator + 1, nExtensionSeparator - nLastSeparator - 1);
             BackupFileName = FileName;
@@ -57,9 +56,45 @@ namespace FileRenamer
             BackupFileExtension = FileExtension;
 
             FileInfo fileInfo = new FileInfo(strPath);
-            FileSize = fileInfo.Length;
+            FileSize = fileInfo.Length / (long)Global.FileSize.KB;
             ModifyTime = fileInfo.LastWriteTime.ToString();
             CreateTime = fileInfo.CreationTime.ToString();
+        }
+
+        public FileObject DeepCopy()
+        {
+            FileObject fileObject = (FileObject)MemberwiseClone();
+
+            fileObject.FileName = string.Copy(FileName);
+            fileObject.FilePath = string.Copy(FilePath);
+            fileObject.FileFullPath = string.Copy(FileFullPath);
+            fileObject.FileExtension = string.Copy(FileExtension);
+
+            fileObject.BackupFileName = string.Copy(BackupFileName);
+            fileObject.BackupFilePath = string.Copy(BackupFilePath);
+            fileObject.BackupFileFullPath = string.Copy(BackupFileFullPath);
+            fileObject.BackupFileExtension = string.Copy(BackupFileExtension);
+
+            fileObject.FileSize = FileSize;
+            fileObject.ModifyTime = string.Copy(ModifyTime);
+            fileObject.CreateTime = string.Copy(CreateTime);
+
+            return fileObject;
+        }
+
+        public FileObject ShallowCopy()
+        {
+            return (FileObject)MemberwiseClone();
+        }
+
+        public FileObject Clone()
+        {
+            return DeepCopy();
+        }
+
+        object ICloneable.Clone()
+        {
+            return DeepCopy();
         }
     }
 }

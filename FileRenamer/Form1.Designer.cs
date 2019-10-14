@@ -48,7 +48,7 @@
             this.listView = new System.Windows.Forms.ListView();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnNameAddFront = new System.Windows.Forms.Button();
-            this.btnNameAddBack = new System.Windows.Forms.Button();
+            this.btnSelDel = new System.Windows.Forms.Button();
             this.btnNameClear = new System.Windows.Forms.Button();
             this.btnNameClearExt = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -151,6 +151,7 @@
             this.menuEditSelUp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
             this.menuEditSelUp.Size = new System.Drawing.Size(204, 22);
             this.menuEditSelUp.Text = "위로 올림";
+            this.menuEditSelUp.Click += new System.EventHandler(this.menuEditSelUp_Click);
             // 
             // menuEditSelDown
             // 
@@ -158,6 +159,7 @@
             this.menuEditSelDown.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
             this.menuEditSelDown.Size = new System.Drawing.Size(204, 22);
             this.menuEditSelDown.Text = "아래로 내림";
+            this.menuEditSelDown.Click += new System.EventHandler(this.menuEditSelDown_Click);
             // 
             // menuView
             // 
@@ -222,6 +224,7 @@
             this.listView.TabIndex = 1;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView_ItemSelectionChanged);
             // 
             // btnLoad
             // 
@@ -241,25 +244,25 @@
             this.btnNameAddFront.Name = "btnNameAddFront";
             this.btnNameAddFront.Size = new System.Drawing.Size(106, 40);
             this.btnNameAddFront.TabIndex = 3;
-            this.btnNameAddFront.Text = "이름 추가(앞)";
+            this.btnNameAddFront.Text = "이름 추가";
             this.btnNameAddFront.UseVisualStyleBackColor = true;
             this.btnNameAddFront.Click += new System.EventHandler(this.BtnNameAddFront_Click);
             // 
-            // btnNameAddBack
+            // btnSelDel
             // 
-            this.btnNameAddBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNameAddBack.Location = new System.Drawing.Point(895, 119);
-            this.btnNameAddBack.Name = "btnNameAddBack";
-            this.btnNameAddBack.Size = new System.Drawing.Size(106, 40);
-            this.btnNameAddBack.TabIndex = 4;
-            this.btnNameAddBack.Text = "이름 추가(뒤)";
-            this.btnNameAddBack.UseVisualStyleBackColor = true;
-            this.btnNameAddBack.Click += new System.EventHandler(this.BtnNameAddBack_Click);
+            this.btnSelDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelDel.Location = new System.Drawing.Point(895, 303);
+            this.btnSelDel.Name = "btnSelDel";
+            this.btnSelDel.Size = new System.Drawing.Size(106, 40);
+            this.btnSelDel.TabIndex = 4;
+            this.btnSelDel.Text = "선택항목 삭제";
+            this.btnSelDel.UseVisualStyleBackColor = true;
+            this.btnSelDel.Click += new System.EventHandler(this.BtnNameAddBack_Click);
             // 
             // btnNameClear
             // 
             this.btnNameClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNameClear.Location = new System.Drawing.Point(785, 165);
+            this.btnNameClear.Location = new System.Drawing.Point(895, 165);
             this.btnNameClear.Name = "btnNameClear";
             this.btnNameClear.Size = new System.Drawing.Size(106, 40);
             this.btnNameClear.TabIndex = 5;
@@ -270,7 +273,7 @@
             // btnNameClearExt
             // 
             this.btnNameClearExt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNameClearExt.Location = new System.Drawing.Point(895, 165);
+            this.btnNameClearExt.Location = new System.Drawing.Point(895, 119);
             this.btnNameClearExt.Name = "btnNameClearExt";
             this.btnNameClearExt.Size = new System.Drawing.Size(106, 40);
             this.btnNameClearExt.TabIndex = 6;
@@ -289,7 +292,7 @@
             // btnNumFix
             // 
             this.btnNumFix.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNumFix.Location = new System.Drawing.Point(785, 211);
+            this.btnNumFix.Location = new System.Drawing.Point(785, 165);
             this.btnNumFix.Name = "btnNumFix";
             this.btnNumFix.Size = new System.Drawing.Size(106, 40);
             this.btnNumFix.TabIndex = 7;
@@ -300,7 +303,7 @@
             // btnNumAdd
             // 
             this.btnNumAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNumAdd.Location = new System.Drawing.Point(895, 211);
+            this.btnNumAdd.Location = new System.Drawing.Point(785, 211);
             this.btnNumAdd.Name = "btnNumAdd";
             this.btnNumAdd.Size = new System.Drawing.Size(106, 40);
             this.btnNumAdd.TabIndex = 8;
@@ -333,7 +336,7 @@
             // btnDelExtension
             // 
             this.btnDelExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelExtension.Location = new System.Drawing.Point(895, 303);
+            this.btnDelExtension.Location = new System.Drawing.Point(895, 257);
             this.btnDelExtension.Name = "btnDelExtension";
             this.btnDelExtension.Size = new System.Drawing.Size(106, 40);
             this.btnDelExtension.TabIndex = 12;
@@ -344,7 +347,7 @@
             // btnChangeExtension
             // 
             this.btnChangeExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChangeExtension.Location = new System.Drawing.Point(895, 257);
+            this.btnChangeExtension.Location = new System.Drawing.Point(895, 211);
             this.btnChangeExtension.Name = "btnChangeExtension";
             this.btnChangeExtension.Size = new System.Drawing.Size(106, 40);
             this.btnChangeExtension.TabIndex = 10;
@@ -407,7 +410,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnNameClearExt);
             this.Controls.Add(this.btnNameClear);
-            this.Controls.Add(this.btnNameAddBack);
+            this.Controls.Add(this.btnSelDel);
             this.Controls.Add(this.btnNameAddFront);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.listView);
@@ -444,7 +447,7 @@
         private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnNameAddFront;
-        private System.Windows.Forms.Button btnNameAddBack;
+        private System.Windows.Forms.Button btnSelDel;
         private System.Windows.Forms.Button btnNameClear;
         private System.Windows.Forms.Button btnNameClearExt;
         private System.Windows.Forms.StatusStrip statusStrip1;

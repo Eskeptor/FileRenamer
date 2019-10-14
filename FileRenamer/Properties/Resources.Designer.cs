@@ -106,20 +106,11 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
-        ///   이름 추가(뒤)과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   이름 추가과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string String_Btn_Name_Add_Back {
+        internal static string String_Btn_Name_Add {
             get {
-                return ResourceManager.GetString("String_Btn_Name_Add_Back", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   이름 추가(앞)과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string String_Btn_Name_Add_Front {
-            get {
-                return ResourceManager.GetString("String_Btn_Name_Add_Front", resourceCulture);
+                return ResourceManager.GetString("String_Btn_Name_Add", resourceCulture);
             }
         }
         
@@ -170,6 +161,15 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
+        ///   선택항목 삭제과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Btn_SelectItem_Del {
+            get {
+                return ResourceManager.GetString("String_Btn_SelectItem_Del", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   선택항목 아래로과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string String_Btn_SelectItem_Down {
@@ -197,11 +197,11 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
-        ///   파일의 뒤쪽에 이름을 추가합니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   파일에 이름을 추가합니다.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string String_Label_FormType_AddNameBack {
+        internal static string String_Label_FormType_AddName {
             get {
-                return ResourceManager.GetString("String_Label_FormType_AddNameBack", resourceCulture);
+                return ResourceManager.GetString("String_Label_FormType_AddName", resourceCulture);
             }
         }
         
@@ -296,11 +296,11 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
-        ///   이름 추가(뒤)과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   이름 추가과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string String_Title_FormType_AddNameBack {
+        internal static string String_Title_FormType_AddName {
             get {
-                return ResourceManager.GetString("String_Title_FormType_AddNameBack", resourceCulture);
+                return ResourceManager.GetString("String_Title_FormType_AddName", resourceCulture);
             }
         }
         

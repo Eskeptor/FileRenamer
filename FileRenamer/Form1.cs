@@ -43,8 +43,8 @@ namespace FileRenamer
             btnLoad.Text = Properties.Resources.String_Btn_Load;
             btnClearList.Text = Properties.Resources.String_Btn_Clear_List;
             btnRestore.Text = Properties.Resources.String_Btn_Restore;
-            btnNameAddFront.Text = Properties.Resources.String_Btn_Name_Add_Front;
-            btnNameAddBack.Text = Properties.Resources.String_Btn_Name_Add_Back;
+            btnNameAddFront.Text = Properties.Resources.String_Btn_Name_Add;
+            btnSelDel.Text = Properties.Resources.String_Btn_SelectItem_Del;
             btnNameClear.Text = Properties.Resources.String_Btn_Name_Clear;
             btnNameClearExt.Text = Properties.Resources.String_Btn_Name_Clear_Ext;
             btnNumFix.Text = Properties.Resources.String_Btn_Num_Fix;
@@ -59,19 +59,7 @@ namespace FileRenamer
 
             // ===================================================================================
             // 버튼 Enabler
-            btnClearList.Enabled = false;
-            btnRestore.Enabled = false;
-            btnNameAddFront.Enabled = false;
-            btnNameAddBack.Enabled = false;
-            btnNameClear.Enabled = false;
-            btnNameClearExt.Enabled = false;
-            btnNumFix.Enabled = false;
-            btnNumAdd.Enabled = false;
-            btnSelUp.Enabled = false;
-            btnSelDown.Enabled = false;
-            btnChangeExtension.Enabled = false;
-            btnDelExtension.Enabled = false;
-            btnApply.Enabled = false;
+            InitButton(false);
             // ===================================================================================
 
 
@@ -103,24 +91,55 @@ namespace FileRenamer
             menuEditSelDown.Enabled = false;
         }
 
+        /// <summary>
+        /// 버튼을 초기화 합니다.
+        /// </summary>
+        /// <param name="bEnabled">초기화 값</param>
+        public void InitButton(bool bEnabled)
+        {
+            btnClearList.Enabled = bEnabled;
+            btnRestore.Enabled = bEnabled;
+            btnNameAddFront.Enabled = bEnabled;
+            btnSelDel.Enabled = bEnabled;
+            btnNameClear.Enabled = bEnabled;
+            btnNameClearExt.Enabled = bEnabled;
+            btnNumFix.Enabled = bEnabled;
+            btnNumAdd.Enabled = bEnabled;
+            btnSelUp.Enabled = bEnabled;
+            btnSelDown.Enabled = bEnabled;
+            btnChangeExtension.Enabled = bEnabled;
+            btnDelExtension.Enabled = bEnabled;
+            btnApply.Enabled = bEnabled;
+        }
+
+        /// <summary>
+        /// 메인 ListView의 아이템을 갱신합니다.
+        /// (리스트 Clear 이후 갱신)
+        /// </summary>
         private void RefreshList()
         {
             listView.Items.Clear();
 
+            listView.BeginUpdate();
             foreach (FileObject file in mArrayList)
             {
-                string[] arrStr = new string[3];
-                arrStr[0] = file.BackupFileName + "." + file.BackupFileExtension;
+                string[] arrStr = new string[(int)Global.ListColumn.Max];
+                arrStr[(int)Global.ListColumn.CurName] = file.BackupFileName + "." + file.BackupFileExtension;
                 if (!string.IsNullOrEmpty(file.FileExtension))
-                    arrStr[1] = file.FileName + "." + file.FileExtension;
+                    arrStr[(int)Global.ListColumn.ReName] = file.FileName + "." + file.FileExtension;
                 else
-                    arrStr[1] = file.FileName;
-                arrStr[2] = file.FilePath;
+                    arrStr[(int)Global.ListColumn.ReName] = file.FileName;
+                arrStr[(int)Global.ListColumn.FilePath] = file.FilePath;
+                arrStr[(int)Global.ListColumn.FullPath] = file.FileFullPath;
+                arrStr[(int)Global.ListColumn.FileSize] = file.FileSize.ToString() + " KB";
+                arrStr[(int)Global.ListColumn.ModifyTime] = file.ModifyTime;
+                arrStr[(int)Global.ListColumn.CreateTime] = file.CreateTime;
 
                 ListViewItem listViewItem = new ListViewItem(arrStr);
 
                 listView.Items.Add(listViewItem);
             }
+            listView.EndUpdate();
         }
 
         /// <summary>
@@ -162,13 +181,11 @@ namespace FileRenamer
                     btnClearList.Enabled = true;
                     btnRestore.Enabled = true;
                     btnNameAddFront.Enabled = true;
-                    btnNameAddBack.Enabled = true;
+                    btnSelDel.Enabled = true;
                     btnNameClear.Enabled = true;
                     btnNameClearExt.Enabled = true;
                     btnNumFix.Enabled = true;
                     btnNumAdd.Enabled = true;
-                    btnSelUp.Enabled = true;
-                    btnSelDown.Enabled = true;
                     btnChangeExtension.Enabled = true;
                     btnDelExtension.Enabled = true;
                     btnApply.Enabled = true;
@@ -185,6 +202,22 @@ namespace FileRenamer
         {
             mArrayList.Clear();
             listView.Items.Clear();
+
+            btnClearList.Enabled = false;
+            btnRestore.Enabled = false;
+            btnNameAddFront.Enabled = false;
+            btnSelDel.Enabled = false;
+            btnNameClear.Enabled = false;
+            btnNameClearExt.Enabled = false;
+            btnNumFix.Enabled = false;
+            btnNumAdd.Enabled = false;
+            btnSelUp.Enabled = false;
+            btnSelDown.Enabled = false;
+            btnChangeExtension.Enabled = false;
+            btnDelExtension.Enabled = false;
+            btnApply.Enabled = false;
+
+            InitMenu();
         }
 
         /// <summary>
@@ -206,7 +239,7 @@ namespace FileRenamer
         }
 
         /// <summary>
-        /// 이름 추가(앞) 버튼
+        /// 이름 추가 버튼
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -214,7 +247,7 @@ namespace FileRenamer
         {
             using (NameForm nameForm = new NameForm())
             {
-                nameForm.SetFormType(Global.FormType.AddNameFront);
+                nameForm.SetFormType(Global.FormType.AddName);
                 nameForm.Owner = this;
                 DialogResult result = nameForm.ShowDialog();
 
@@ -222,8 +255,24 @@ namespace FileRenamer
                 {
                     if (!string.IsNullOrEmpty(mStrDlgReturn))
                     {
-                        foreach (FileObject file in mArrayList)
-                            file.FileName = mStrDlgReturn + file.FileName;
+                        // mStrDlgReturn 데이터 스플릿
+                        // [0] = 문자열을 넣을 위치
+                        // [1] = 넣을 문자열
+                        string[] strToken = mStrDlgReturn.Split(',');
+
+                        if (strToken.Length == 2)
+                        {
+                            if (strToken[0].CompareTo("0") == 0)    // 앞에 추가
+                            {
+                                foreach (FileObject file in mArrayList)
+                                    file.FileName = strToken[1] + file.FileName;
+                            }
+                            else                                    // 뒤에 추가
+                            {
+                                foreach (FileObject file in mArrayList)
+                                    file.FileName = file.FileName + strToken[1];
+                            }
+                        }
 
                         RefreshList();
                     }
@@ -241,21 +290,7 @@ namespace FileRenamer
         {
             using (NameForm nameForm = new NameForm())
             {
-                nameForm.SetFormType(Global.FormType.AddNameBack);
-                nameForm.Owner = this;
-                DialogResult result = nameForm.ShowDialog();
-
-                if (result == DialogResult.OK)
-                {
-                    if (!string.IsNullOrEmpty(mStrDlgReturn))
-                    {
-                        foreach (FileObject file in mArrayList)
-                            file.FileName += mStrDlgReturn;
-
-                        RefreshList();
-                    }
-                    mStrDlgReturn = string.Empty;
-                }
+                
             }
         }
 
@@ -373,7 +408,25 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnSelUp_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int nCurSelIndex = listView.SelectedItems[0].Index;
 
+                if (nCurSelIndex != 0)
+                {
+                    FileObject prevObject = (mArrayList[nCurSelIndex - 1] as FileObject).Clone();
+
+                    mArrayList[nCurSelIndex - 1] = (mArrayList[nCurSelIndex] as FileObject).Clone();
+                    mArrayList[nCurSelIndex] = prevObject.Clone();
+
+                    RefreshList();
+
+                    listView.Items[nCurSelIndex - 1].Selected = true;
+                    listView.Focus();
+                    listView.Items[nCurSelIndex - 1].EnsureVisible();
+                }
+            }
+            catch(Exception) {}
         }
 
         /// <summary>
@@ -410,7 +463,25 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnSelDown_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int nCurSelIndex = listView.SelectedItems[0].Index;
 
+                if (nCurSelIndex != listView.Items.Count - 1)
+                {
+                    FileObject prevObject = (mArrayList[nCurSelIndex + 1] as FileObject).Clone();
+
+                    mArrayList[nCurSelIndex + 1] = (mArrayList[nCurSelIndex] as FileObject).Clone();
+                    mArrayList[nCurSelIndex] = prevObject.Clone();
+
+                    RefreshList();
+
+                    listView.Items[nCurSelIndex + 1].Selected = true;
+                    listView.Focus();
+                    listView.Items[nCurSelIndex + 1].EnsureVisible();
+                }
+            }
+            catch (Exception) { }
         }
 
         /// <summary>
@@ -504,6 +575,53 @@ namespace FileRenamer
         private void MenuFileAdd_Click(object sender, EventArgs e)
         {
             BtnLoad_Click(null, null);
+        }
+
+
+        /// <summary>
+        /// 메인 파일 List - 선택 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            try
+            {
+                int nCurSelIdx = listView.SelectedItems[0].Index;
+
+                btnSelUp.Enabled = true;
+                btnSelDown.Enabled = true;
+                menuEditSelUp.Enabled = true;
+                menuEditSelDown.Enabled = true;
+            }
+            catch (Exception)
+            {
+                btnSelUp.Enabled = false;
+                btnSelDown.Enabled = false;
+                menuEditSelUp.Enabled = false;
+                menuEditSelDown.Enabled = false;
+            }
+
+        }
+
+        /// <summary>
+        /// 메뉴 - 편집 - 위로 올림
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuEditSelUp_Click(object sender, EventArgs e)
+        {
+            BtnSelUp_Click(sender, e);
+        }
+
+        /// <summary>
+        /// 메뉴 - 편집 - 아래로 내림
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuEditSelDown_Click(object sender, EventArgs e)
+        {
+            BtnSelDown_Click(sender, e);
         }
     }
 }

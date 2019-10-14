@@ -15,6 +15,14 @@ namespace FileRenamer
         public NameForm()
         {
             InitializeComponent();
+
+            InitControl();
+        }
+
+        private void InitControl()
+        {
+            string[] STR_DIRECT = new string[2] { "앞", "뒤" };
+            nameFrmCBoxDirect.Items.AddRange(STR_DIRECT);
         }
 
         /// <summary>
@@ -25,13 +33,9 @@ namespace FileRenamer
         {
             switch (formType)
             {
-                case Global.FormType.AddNameFront:
-                    Text = Properties.Resources.String_Title_FormType_AddNameFront;
-                    nameFrmLblContext.Text = Properties.Resources.String_Label_FormType_AddNameFront;
-                    break;
-                case Global.FormType.AddNameBack:
-                    Text = Properties.Resources.String_Title_FormType_AddNameBack;
-                    nameFrmLblContext.Text = Properties.Resources.String_Label_FormType_AddNameBack;
+                case Global.FormType.AddName:
+                    Text = Properties.Resources.String_Title_FormType_AddName;
+                    nameFrmLblContext.Text = Properties.Resources.String_Label_FormType_AddName;
                     break;
                 case Global.FormType.ChangeExtension:
                     Text = Properties.Resources.String_Title_FormType_ChangeExtension;
@@ -47,7 +51,7 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void NameFrmBtnOK_Click(object sender, EventArgs e)
         {
-            ((mainForm)(Owner)).mStrDlgReturn = nameFrmEdit.Text;
+            ((mainForm)(Owner)).mStrDlgReturn = string.Format("{0},{1}", nameFrmCBoxDirect.SelectedIndex, nameFrmEdit.Text);
             this.DialogResult = DialogResult.OK;
             Close();
         }
