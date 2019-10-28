@@ -188,6 +188,51 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
+        ///   오류과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Error {
+            get {
+                return ResourceManager.GetString("String_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   파일 경로를 찾을 수 없습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Error_DirNotFound {
+            get {
+                return ResourceManager.GetString("String_Error_DirNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   원본 파일이 존재하지 않음과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Error_FileNotExist {
+            get {
+                return ResourceManager.GetString("String_Error_FileNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   파일 입출력에 문제가 있습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Error_IOException {
+            get {
+                return ResourceManager.GetString("String_Error_IOException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   파일 접근 권한이 없습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Error_Unauthor {
+            get {
+                return ResourceManager.GetString("String_Error_Unauthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   파일 {0}에 번호를 붙입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string String_Label_AddNumber {
@@ -287,11 +332,29 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
+        ///   파일을 저장하였습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Success_FileSave {
+            get {
+                return ResourceManager.GetString("String_Success_FileSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   번호 붙이기과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string String_Title_AddNumber {
             get {
                 return ResourceManager.GetString("String_Title_AddNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   파일 저장과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Title_FileSave {
+            get {
+                return ResourceManager.GetString("String_Title_FileSave", resourceCulture);
             }
         }
         

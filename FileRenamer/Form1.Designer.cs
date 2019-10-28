@@ -62,6 +62,7 @@
             this.btnSelDown = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,6 +114,7 @@
             | System.Windows.Forms.Keys.S)));
             this.menuFileExportNameList.Size = new System.Drawing.Size(302, 22);
             this.menuFileExportNameList.Text = "바꿀이름 파일로 내보내기";
+            this.menuFileExportNameList.Click += new System.EventHandler(this.menuFileExportNameList_Click);
             // 
             // menuFileImportNameList
             // 
@@ -121,6 +123,7 @@
             | System.Windows.Forms.Keys.O)));
             this.menuFileImportNameList.Size = new System.Drawing.Size(302, 22);
             this.menuFileImportNameList.Text = "바꿀이름 파일에서 불러오기";
+            this.menuFileImportNameList.Click += new System.EventHandler(this.menuFileImportNameList_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -461,6 +464,7 @@
         private System.Windows.Forms.Button btnSelDown;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

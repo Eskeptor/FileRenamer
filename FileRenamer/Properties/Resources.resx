@@ -160,6 +160,21 @@
   <data name="String_Btn_SelectItem_Up" xml:space="preserve">
     <value>선택항목 위로</value>
   </data>
+  <data name="String_Error" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="String_Error_DirNotFound" xml:space="preserve">
+    <value>파일 경로를 찾을 수 없습니다.</value>
+  </data>
+  <data name="String_Error_FileNotExist" xml:space="preserve">
+    <value>원본 파일이 존재하지 않음</value>
+  </data>
+  <data name="String_Error_IOException" xml:space="preserve">
+    <value>파일 입출력에 문제가 있습니다.</value>
+  </data>
+  <data name="String_Error_Unauthor" xml:space="preserve">
+    <value>파일 접근 권한이 없습니다.</value>
+  </data>
   <data name="String_Label_AddNumber" xml:space="preserve">
     <value>파일 {0}에 번호를 붙입니다.</value>
   </data>
@@ -193,8 +208,14 @@
   <data name="String_List_ReName" xml:space="preserve">
     <value>바꿀 이름</value>
   </data>
+  <data name="String_Success_FileSave" xml:space="preserve">
+    <value>파일을 저장하였습니다.</value>
+  </data>
   <data name="String_Title_AddNumber" xml:space="preserve">
     <value>번호 붙이기</value>
+  </data>
+  <data name="String_Title_FileSave" xml:space="preserve">
+    <value>파일 저장</value>
   </data>
   <data name="String_Title_FormType_AddName" xml:space="preserve">
     <value>이름 추가</value>

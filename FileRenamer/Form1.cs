@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
+using System.Text;
 
 namespace FileRenamer
 {
@@ -116,7 +110,8 @@ namespace FileRenamer
         /// 메인 ListView의 아이템을 갱신합니다.
         /// (리스트 Clear 이후 갱신)
         /// </summary>
-        private void RefreshList()
+        /// <param name="bIsBackupFullPathClear">BackupFullPath를 FileFullPath로 초기화 할지 유무</param>
+        private void RefreshList(bool bIsBackupFullPathClear = false)
         {
             listView.Items.Clear();
 
@@ -130,6 +125,9 @@ namespace FileRenamer
                 else
                     arrStr[(int)Global.ListColumn.ReName] = file.FileName;
                 arrStr[(int)Global.ListColumn.FilePath] = file.FilePath;
+                file.FileFullPath = file.FilePath + file.FileName + "." + file.FileExtension;
+                if (bIsBackupFullPathClear)
+                    file.BackupFileFullPath = file.FileFullPath;
                 arrStr[(int)Global.ListColumn.FullPath] = file.FileFullPath;
                 arrStr[(int)Global.ListColumn.FileSize] = file.FileSize.ToString() + " KB";
                 arrStr[(int)Global.ListColumn.ModifyTime] = file.ModifyTime;
@@ -150,7 +148,7 @@ namespace FileRenamer
         private void BtnLoad_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = openFileDialog.ShowDialog();
-            
+
             if (dialogResult == DialogResult.OK)
             {
                 bool bIsContinue = false;
@@ -189,6 +187,8 @@ namespace FileRenamer
                     btnChangeExtension.Enabled = true;
                     btnDelExtension.Enabled = true;
                     btnApply.Enabled = true;
+                    menuFileImportNameList.Enabled = true;
+                    menuFileExportNameList.Enabled = true;
                 }
             }
         }
@@ -290,7 +290,7 @@ namespace FileRenamer
         {
             using (NameForm nameForm = new NameForm())
             {
-                
+
             }
         }
 
@@ -350,7 +350,7 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnNumFix_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         /// <summary>
@@ -383,7 +383,7 @@ namespace FileRenamer
                             int nStart = int.Parse(strToken[2]);
                             string strFormat = string.Format("D{0}", nDigit);
                             strFormat = "{0,0:" + strFormat + "}";
-                            
+
 
                             foreach (FileObject file in mArrayList)
                             {
@@ -426,7 +426,7 @@ namespace FileRenamer
                     listView.Items[nCurSelIndex - 1].EnsureVisible();
                 }
             }
-            catch(Exception) {}
+            catch (Exception) { }
         }
 
         /// <summary>
@@ -504,7 +504,22 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnApply_Click(object sender, EventArgs e)
         {
-
+            foreach (FileObject file in mArrayList)
+            {
+                if (File.Exists(file.BackupFileFullPath))
+                {
+                    File.Move(file.BackupFileFullPath, file.FileFullPath);
+                    file.BackupFileName = file.FileName;
+                    file.BackupFileExtension = file.FileExtension;
+                    file.BackupFilePath = file.FilePath;
+                }
+                else
+                {
+                    file.BackupFileName = Properties.Resources.String_Error_FileNotExist;
+                    file.BackupFileExtension = "";
+                }
+            }
+            RefreshList(true);
         }
 
         /// <summary>
@@ -622,6 +637,105 @@ namespace FileRenamer
         private void menuEditSelDown_Click(object sender, EventArgs e)
         {
             BtnSelDown_Click(sender, e);
+        }
+
+        /// <summary>
+        /// 메뉴 - 파일 - 바꿀이름 파일로 내보내기
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuFileExportNameList_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.Filter = Global.NAMELIST_EXTENSION_FILTER;
+            DialogResult dialogResult = saveFileDialog.ShowDialog();
+
+            if (dialogResult == DialogResult.OK)
+            {
+                string strResult = OutputNameFile();
+                try
+                {
+                    using (TextWriter writer = new StreamWriter(saveFileDialog.FileName))
+                    {
+                        writer.Write(strResult);
+                    }
+                    MessageBox.Show(Properties.Resources.String_Success_FileSave, Properties.Resources.String_Title_FileSave);
+                }
+                catch (UnauthorizedAccessException)
+                { 
+                    MessageBox.Show(Properties.Resources.String_Error_Unauthor, Properties.Resources.String_Error); 
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    MessageBox.Show(Properties.Resources.String_Error_DirNotFound, Properties.Resources.String_Error);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show(Properties.Resources.String_Error_IOException, Properties.Resources.String_Error);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 메뉴 - 파일 - 바꿀이름 파일에서 불러오기
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuFileImportNameList_Click(object sender, EventArgs e)
+        {
+            openFileDialog.Filter = Global.NAMELIST_EXTENSION_FILTER;
+            DialogResult dialogResult = openFileDialog.ShowDialog();
+
+            if (dialogResult == DialogResult.OK)
+            {
+                
+            }
+        }
+
+        /// <summary>
+        /// 바꿀이름 목록을 string형으로 만들어주는 메소드
+        /// </summary>
+        /// <returns>바꿀이름 목록</returns>
+        private string OutputNameFile()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (FileObject file in mArrayList)
+                stringBuilder.AppendLine(file.FileFullPath);
+
+            string strResult = stringBuilder.ToString();
+            return strResult;
+        }
+
+        private bool InputNameFile(string strFilePath, ref ArrayList arrayList)
+        {
+            bool bResult = false;
+
+            try
+            {
+                using (TextReader reader = new StreamReader(strFilePath))
+                {
+                    string strLine = string.Empty;
+                    int nIdx = 0;
+                    while (!string.IsNullOrEmpty(strLine = reader.ReadLine()))
+                    {
+                        //if (nIdx < mArrayList.Count)
+                        //    (mArrayList[nIdx++] as FileObject).
+                    }
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show(Properties.Resources.String_Error_Unauthor, Properties.Resources.String_Error);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show(Properties.Resources.String_Error_DirNotFound, Properties.Resources.String_Error);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show(Properties.Resources.String_Error_IOException, Properties.Resources.String_Error);
+            }
+
+            return bResult;
         }
     }
 }

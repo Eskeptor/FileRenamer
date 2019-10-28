@@ -57,5 +57,7 @@ namespace FileRenamer
             All = 0,    // 버튼 전체
             Load        // 파일 불러오기 모드 (선택항목 위로, 아래로 버튼 제외)
         }
+
+        public const string NAMELIST_EXTENSION_FILTER = "NameList (*.nlt)|*.nlt";
     }
 }
