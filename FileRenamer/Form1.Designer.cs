@@ -212,6 +212,7 @@
             this.menuInfo.ShowShortcutKeys = false;
             this.menuInfo.Size = new System.Drawing.Size(54, 20);
             this.menuInfo.Text = "정보(&I)";
+            this.menuInfo.Click += new System.EventHandler(this.menuInfo_Click);
             // 
             // listView
             // 

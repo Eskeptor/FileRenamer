@@ -3,12 +3,13 @@ using System.Collections;
 using System.IO;
 using System.Windows.Forms;
 using System.Text;
+using System.Collections.Generic;
 
 namespace FileRenamer
 {
     public partial class mainForm : Form
     {
-        private ArrayList mArrayList = new ArrayList();
+        private List<FileObject> mFileList = new List<FileObject>();
         public string mStrDlgReturn = string.Empty;
 
         public mainForm()
@@ -116,7 +117,7 @@ namespace FileRenamer
             listView.Items.Clear();
 
             listView.BeginUpdate();
-            foreach (FileObject file in mArrayList)
+            foreach (FileObject file in mFileList)
             {
                 string[] arrStr = new string[(int)Global.ListColumn.Max];
                 arrStr[(int)Global.ListColumn.CurName] = file.BackupFileName + "." + file.BackupFileExtension;
@@ -157,7 +158,7 @@ namespace FileRenamer
                     FileObject fileObject = new FileObject();
                     fileObject.SetFile(str);
 
-                    foreach (FileObject file in mArrayList)
+                    foreach (FileObject file in mFileList)
                     {
                         if (fileObject.FileFullPath.CompareTo(file.FileFullPath) == 0)
                         {
@@ -167,14 +168,14 @@ namespace FileRenamer
                     }
 
                     if (!bIsContinue)
-                        mArrayList.Add(fileObject);
+                        mFileList.Add(fileObject);
                     else
                         bIsContinue = false;
                 }
 
                 RefreshList();
 
-                if (mArrayList.Count > 0)
+                if (mFileList.Count > 0)
                 {
                     btnClearList.Enabled = true;
                     btnRestore.Enabled = true;
@@ -200,7 +201,7 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnClearList_Click(object sender, EventArgs e)
         {
-            mArrayList.Clear();
+            mFileList.Clear();
             listView.Items.Clear();
 
             btnClearList.Enabled = false;
@@ -227,7 +228,7 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnRestore_Click(object sender, EventArgs e)
         {
-            foreach (FileObject file in mArrayList)
+            foreach (FileObject file in mFileList)
             {
                 file.FileName = file.BackupFileName;
                 file.FilePath = file.BackupFilePath;
@@ -264,12 +265,12 @@ namespace FileRenamer
                         {
                             if (strToken[0].CompareTo("0") == 0)    // 앞에 추가
                             {
-                                foreach (FileObject file in mArrayList)
+                                foreach (FileObject file in mFileList)
                                     file.FileName = strToken[1] + file.FileName;
                             }
                             else                                    // 뒤에 추가
                             {
-                                foreach (FileObject file in mArrayList)
+                                foreach (FileObject file in mFileList)
                                     file.FileName = file.FileName + strToken[1];
                             }
                         }
@@ -301,7 +302,7 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnNameClear_Click(object sender, EventArgs e)
         {
-            foreach (FileObject file in mArrayList)
+            foreach (FileObject file in mFileList)
                 file.FileName = string.Empty;
 
             RefreshList();
@@ -330,7 +331,7 @@ namespace FileRenamer
 
                         if (strToken.Length == 2)
                         {
-                            foreach (FileObject file in mArrayList)
+                            foreach (FileObject file in mFileList)
                             {
                                 file.FileName = file.FileName.Replace(strToken[0], strToken[1]);
                             }
@@ -385,7 +386,7 @@ namespace FileRenamer
                             strFormat = "{0,0:" + strFormat + "}";
 
 
-                            foreach (FileObject file in mArrayList)
+                            foreach (FileObject file in mFileList)
                             {
                                 if (nDirect == 0)
                                     file.FileName = string.Format(strFormat, nStart++) + file.FileName;
@@ -414,10 +415,10 @@ namespace FileRenamer
 
                 if (nCurSelIndex != 0)
                 {
-                    FileObject prevObject = (mArrayList[nCurSelIndex - 1] as FileObject).Clone();
+                    FileObject prevObject = mFileList[nCurSelIndex - 1].Clone();
 
-                    mArrayList[nCurSelIndex - 1] = (mArrayList[nCurSelIndex] as FileObject).Clone();
-                    mArrayList[nCurSelIndex] = prevObject.Clone();
+                    mFileList[nCurSelIndex - 1] = mFileList[nCurSelIndex].Clone();
+                    mFileList[nCurSelIndex] = prevObject.Clone();
 
                     RefreshList();
 
@@ -446,7 +447,7 @@ namespace FileRenamer
                 {
                     if (!string.IsNullOrEmpty(mStrDlgReturn))
                     {
-                        foreach (FileObject file in mArrayList)
+                        foreach (FileObject file in mFileList)
                             file.FileExtension = mStrDlgReturn;
 
                         RefreshList();
@@ -469,10 +470,10 @@ namespace FileRenamer
 
                 if (nCurSelIndex != listView.Items.Count - 1)
                 {
-                    FileObject prevObject = (mArrayList[nCurSelIndex + 1] as FileObject).Clone();
+                    FileObject prevObject = mFileList[nCurSelIndex + 1].Clone();
 
-                    mArrayList[nCurSelIndex + 1] = (mArrayList[nCurSelIndex] as FileObject).Clone();
-                    mArrayList[nCurSelIndex] = prevObject.Clone();
+                    mFileList[nCurSelIndex + 1] = mFileList[nCurSelIndex].Clone();
+                    mFileList[nCurSelIndex] = prevObject.Clone();
 
                     RefreshList();
 
@@ -491,7 +492,7 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnDelExtension_Click(object sender, EventArgs e)
         {
-            foreach (FileObject file in mArrayList)
+            foreach (FileObject file in mFileList)
                 file.FileExtension = string.Empty;
 
             RefreshList();
@@ -504,7 +505,7 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnApply_Click(object sender, EventArgs e)
         {
-            foreach (FileObject file in mArrayList)
+            foreach (FileObject file in mFileList)
             {
                 if (File.Exists(file.BackupFileFullPath))
                 {
@@ -687,7 +688,34 @@ namespace FileRenamer
 
             if (dialogResult == DialogResult.OK)
             {
-                
+                try
+                {
+                    string strTmp = string.Empty;
+                    int nIdx = 0;
+
+                    using (TextReader reader = new StreamReader(openFileDialog.FileName))
+                    {
+                        while (!string.IsNullOrEmpty(strTmp = reader.ReadLine()))
+                        {
+                            if (!InputNameFile(strTmp, ref nIdx))
+                                break;
+                        }
+                    }
+                    RefreshList();
+                    MessageBox.Show(Properties.Resources.String_Success_FileLoad, Properties.Resources.String_Title_FileLoad);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show(Properties.Resources.String_Error_Unauthor, Properties.Resources.String_Error);
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    MessageBox.Show(Properties.Resources.String_Error_DirNotFound, Properties.Resources.String_Error);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show(Properties.Resources.String_Error_IOException, Properties.Resources.String_Error);
+                }
             }
         }
 
@@ -698,44 +726,48 @@ namespace FileRenamer
         private string OutputNameFile()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (FileObject file in mArrayList)
+            foreach (FileObject file in mFileList)
                 stringBuilder.AppendLine(file.FileFullPath);
 
             string strResult = stringBuilder.ToString();
             return strResult;
         }
 
-        private bool InputNameFile(string strFilePath, ref ArrayList arrayList)
+        /// <summary>
+        /// 바꿀이름 목록을 파일로부터 받아온 한줄데이터를 해당 리스트의 인덱스부분에 넣는 메소드
+        /// </summary>
+        /// <param name="strLine">바꿀 이름 데이터</param>
+        /// <param name="nIdx">데이터를 넣을 리스트의 인덱스</param>
+        /// <returns>성공 또는 실패</returns>
+        private bool InputNameFile(string strLine, ref int nIdx)
         {
-            bool bResult = false;
+            bool bResult = true;
 
-            try
+            if (nIdx < mFileList.Count)
             {
-                using (TextReader reader = new StreamReader(strFilePath))
-                {
-                    string strLine = string.Empty;
-                    int nIdx = 0;
-                    while (!string.IsNullOrEmpty(strLine = reader.ReadLine()))
-                    {
-                        //if (nIdx < mArrayList.Count)
-                        //    (mArrayList[nIdx++] as FileObject).
-                    }
-                }
+                mFileList[nIdx].FileFullPath = strLine;
+
+                int nLastSeparator = strLine.LastIndexOf(Path.DirectorySeparatorChar);
+                mFileList[nIdx].FilePath = strLine.Substring(0, nLastSeparator + 1);
+
+                int nExtensionSeparator = strLine.LastIndexOf(".");
+                mFileList[nIdx].FileName = strLine.Substring(nLastSeparator + 1, nExtensionSeparator - nLastSeparator - 1);
+                mFileList[nIdx].FileExtension = strLine.Substring(nExtensionSeparator + 1);
+
+                nIdx++;
             }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show(Properties.Resources.String_Error_Unauthor, Properties.Resources.String_Error);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                MessageBox.Show(Properties.Resources.String_Error_DirNotFound, Properties.Resources.String_Error);
-            }
-            catch (IOException)
-            {
-                MessageBox.Show(Properties.Resources.String_Error_IOException, Properties.Resources.String_Error);
-            }
+            else
+                bResult = false;
 
             return bResult;
+        }
+
+        private void menuInfo_Click(object sender, EventArgs e)
+        {
+            using (AboutBox box = new AboutBox())
+            {
+                box.ShowDialog();
+            }
         }
     }
 }

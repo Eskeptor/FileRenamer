@@ -332,6 +332,15 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
+        ///   파일을 읽어왔습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Success_FileLoad {
+            get {
+                return ResourceManager.GetString("String_Success_FileLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   파일을 저장하였습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string String_Success_FileSave {
@@ -346,6 +355,15 @@ namespace FileRenamer.Properties {
         internal static string String_Title_AddNumber {
             get {
                 return ResourceManager.GetString("String_Title_AddNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   파일 읽기과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Title_FileLoad {
+            get {
+                return ResourceManager.GetString("String_Title_FileLoad", resourceCulture);
             }
         }
         
