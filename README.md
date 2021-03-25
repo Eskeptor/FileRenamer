@@ -1,4 +1,4 @@
-# OpenPad for Android
+# File Renamer
 [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 ![homepage](./Preview/Shot1.PNG)
 ## Features
