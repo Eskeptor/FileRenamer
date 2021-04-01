@@ -59,6 +59,7 @@
             // 
             // numFrmCBoxDigit
             // 
+            this.numFrmCBoxDigit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.numFrmCBoxDigit.FormattingEnabled = true;
             this.numFrmCBoxDigit.Location = new System.Drawing.Point(167, 47);
             this.numFrmCBoxDigit.Name = "numFrmCBoxDigit";
@@ -96,11 +97,13 @@
             // 
             // numFrmCBoxDirect
             // 
+            this.numFrmCBoxDirect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.numFrmCBoxDirect.FormattingEnabled = true;
             this.numFrmCBoxDirect.Location = new System.Drawing.Point(48, 47);
             this.numFrmCBoxDirect.Name = "numFrmCBoxDirect";
             this.numFrmCBoxDirect.Size = new System.Drawing.Size(64, 20);
             this.numFrmCBoxDirect.TabIndex = 1;
+            this.numFrmCBoxDirect.SelectedIndexChanged += new System.EventHandler(this.numFrmCBoxDirect_SelectedIndexChanged);
             // 
             // label3
             // 

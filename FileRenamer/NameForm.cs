@@ -23,6 +23,7 @@ namespace FileRenamer
         {
             string[] STR_DIRECT = new string[2] { "앞", "뒤" };
             nameFrmCBoxDirect.Items.AddRange(STR_DIRECT);
+            nameFrmCBoxDirect.SelectedIndex = 0;
         }
 
         /// <summary>

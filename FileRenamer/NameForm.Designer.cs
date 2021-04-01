@@ -74,6 +74,7 @@
             // 
             // nameFrmCBoxDirect
             // 
+            this.nameFrmCBoxDirect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.nameFrmCBoxDirect.FormattingEnabled = true;
             this.nameFrmCBoxDirect.Location = new System.Drawing.Point(45, 48);
             this.nameFrmCBoxDirect.Name = "nameFrmCBoxDirect";

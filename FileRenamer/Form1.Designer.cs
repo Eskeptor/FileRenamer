@@ -261,7 +261,7 @@
             this.btnSelDel.TabIndex = 4;
             this.btnSelDel.Text = "선택항목 삭제";
             this.btnSelDel.UseVisualStyleBackColor = true;
-            this.btnSelDel.Click += new System.EventHandler(this.BtnNameAddBack_Click);
+            this.btnSelDel.Click += new System.EventHandler(this.BtnNameDelete);
             // 
             // btnNameClear
             // 
@@ -296,6 +296,7 @@
             // btnNumFix
             // 
             this.btnNumFix.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNumFix.Enabled = false;
             this.btnNumFix.Location = new System.Drawing.Point(785, 165);
             this.btnNumFix.Name = "btnNumFix";
             this.btnNumFix.Size = new System.Drawing.Size(106, 40);

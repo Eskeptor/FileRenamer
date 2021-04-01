@@ -98,7 +98,7 @@ namespace FileRenamer
             btnSelDel.Enabled = bEnabled;
             btnNameClear.Enabled = bEnabled;
             btnNameClearExt.Enabled = bEnabled;
-            btnNumFix.Enabled = bEnabled;
+            //btnNumFix.Enabled = bEnabled;
             btnNumAdd.Enabled = bEnabled;
             btnSelUp.Enabled = bEnabled;
             btnSelDown.Enabled = bEnabled;
@@ -183,7 +183,7 @@ namespace FileRenamer
                     btnSelDel.Enabled = true;
                     btnNameClear.Enabled = true;
                     btnNameClearExt.Enabled = true;
-                    btnNumFix.Enabled = true;
+                    //btnNumFix.Enabled = true;
                     btnNumAdd.Enabled = true;
                     btnChangeExtension.Enabled = true;
                     btnDelExtension.Enabled = true;
@@ -279,19 +279,6 @@ namespace FileRenamer
                     }
                     mStrDlgReturn = string.Empty;
                 }
-            }
-        }
-
-        /// <summary>
-        /// 이름 추가(뒤) 버튼
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnNameAddBack_Click(object sender, EventArgs e)
-        {
-            using (NameForm nameForm = new NameForm())
-            {
-
             }
         }
 
@@ -609,6 +596,7 @@ namespace FileRenamer
                 btnSelDown.Enabled = true;
                 menuEditSelUp.Enabled = true;
                 menuEditSelDown.Enabled = true;
+                btnSelDel.Enabled = true;
             }
             catch (Exception)
             {
@@ -616,6 +604,7 @@ namespace FileRenamer
                 btnSelDown.Enabled = false;
                 menuEditSelUp.Enabled = false;
                 menuEditSelDown.Enabled = false;
+                btnSelDel.Enabled = false;
             }
 
         }
@@ -768,6 +757,32 @@ namespace FileRenamer
             {
                 box.ShowDialog();
             }
+        }
+
+        /// <summary>
+        /// 선택항목 삭제 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnNameDelete(object sender, EventArgs e)
+        {
+            try
+            {
+                int nCurSelIndex = listView.SelectedItems[0].Index;
+
+                if (nCurSelIndex != 0)
+                {
+                    mFileList.RemoveAt(nCurSelIndex);
+                    RefreshList();
+
+                    btnSelUp.Enabled = false;
+                    btnSelDown.Enabled = false;
+                    menuEditSelUp.Enabled = false;
+                    menuEditSelDown.Enabled = false;
+                    btnSelDel.Enabled = false;
+                }
+            }
+            catch (Exception) { }
         }
     }
 }

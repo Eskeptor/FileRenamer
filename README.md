@@ -1,4 +1,4 @@
-# OpenPad for Android
+# File Renamer
 [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 ![homepage](./Preview/Shot1.png)
 ## Features
@@ -6,9 +6,10 @@
  1) Many files can be renamed easily.
  2) C# (.NET Framework 4.7.2)
 ```
-## What's New? (Last updated 2019.10.30) - Build 1.0.0.0
+## What's New? (Last updated 2021.04.01) - Build 1.0.0.1
 ```
- 1) Release (Version 1.0.0.0)
+ 1) Bug Fix (Number Form Name)
+ 2) Bug Fix (Delete)
 ```
 ## Lasted Update List
 [View Lists](./UPDATE.md)
@@ -19,7 +20,7 @@
  CPU : AMD Ryzen R5 3600
  RAM : 32GB
  VGA : AMD Radeon RX 5700 XT
- IDE : Visual Studio 2019 Community 16.3.4
+ IDE : Visual Studio 2019 Community 16.7.6
 ```
 
 ## License
@@ -37,4 +38,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ## Good Bye!!
-Compiled by Visual Studio 2019 Community 16.3.4
+Compiled by Visual Studio 2019 Community 16.7.6
