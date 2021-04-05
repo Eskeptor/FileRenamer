@@ -6,10 +6,9 @@
  1) Many files can be renamed easily.
  2) C# (.NET Framework 4.7.2)
 ```
-## What's New? (Last updated 2021.04.01) - Build 1.0.0.1
+## What's New? (Last updated 2021.04.05) - Build 1.0.0.2
 ```
- 1) Bug Fix (Number Form Name)
- 2) Bug Fix (Delete)
+ 1) Bug Fix (Extension Change)
 ```
 ## Lasted Update List
 [View Lists](./UPDATE.md)

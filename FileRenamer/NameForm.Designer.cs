@@ -33,7 +33,7 @@
             this.nameFrmBtnCancel = new System.Windows.Forms.Button();
             this.nameFrmBtnOK = new System.Windows.Forms.Button();
             this.nameFrmCBoxDirect = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.nameFrmLblPos = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nameFrmEdit
@@ -81,14 +81,14 @@
             this.nameFrmCBoxDirect.Size = new System.Drawing.Size(64, 20);
             this.nameFrmCBoxDirect.TabIndex = 11;
             // 
-            // label3
+            // nameFrmLblPos
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "위치";
+            this.nameFrmLblPos.AutoSize = true;
+            this.nameFrmLblPos.Location = new System.Drawing.Point(14, 52);
+            this.nameFrmLblPos.Name = "nameFrmLblPos";
+            this.nameFrmLblPos.Size = new System.Drawing.Size(29, 12);
+            this.nameFrmLblPos.TabIndex = 12;
+            this.nameFrmLblPos.Text = "위치";
             // 
             // NameForm
             // 
@@ -96,7 +96,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(396, 136);
             this.Controls.Add(this.nameFrmCBoxDirect);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.nameFrmLblPos);
             this.Controls.Add(this.nameFrmBtnOK);
             this.Controls.Add(this.nameFrmBtnCancel);
             this.Controls.Add(this.nameFrmLblContext);
@@ -116,6 +116,6 @@
         private System.Windows.Forms.Button nameFrmBtnCancel;
         private System.Windows.Forms.Button nameFrmBtnOK;
         private System.Windows.Forms.ComboBox nameFrmCBoxDirect;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label nameFrmLblPos;
     }
 }
