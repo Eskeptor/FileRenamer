@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RString = FileRenamer.Properties.Resources;
 
 namespace FileRenamer
 {
@@ -21,7 +22,7 @@ namespace FileRenamer
 
         private void InitControls()
         {
-            string[] STR_DIRECT = new string[2] { "앞", "뒤" };
+            string[] STR_DIRECT = new string[2] { RString.String_Menu_Front, RString.String_Menu_Back };
             numFrmCBoxDirect.Items.AddRange(STR_DIRECT);
             numFrmCBoxDirect.SelectedIndex = 0;
 
@@ -29,8 +30,8 @@ namespace FileRenamer
                 numFrmCBoxDigit.Items.Add(string.Format("{0}", i));
             numFrmCBoxDigit.SelectedIndex = 0;
 
-            Text = Properties.Resources.String_Title_AddNumber;
-            numFrmLblContext.Text = string.Format(Properties.Resources.String_Label_AddNumber, STR_DIRECT[0]);
+            Text = RString.String_Title_AddNumber;
+            numFrmLblContext.Text = string.Format(RString.String_Label_AddNumber, STR_DIRECT[0]);
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void numFrmCBoxDirect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            numFrmLblContext.Text = string.Format(Properties.Resources.String_Label_AddNumber, numFrmCBoxDirect.Text);
+            numFrmLblContext.Text = string.Format(RString.String_Label_AddNumber, numFrmCBoxDirect.Text);
         }
     }
 }

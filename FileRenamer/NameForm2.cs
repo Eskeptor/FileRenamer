@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RString = FileRenamer.Properties.Resources;
 
 namespace FileRenamer
 {
@@ -20,11 +21,16 @@ namespace FileRenamer
         }
         private void InitControls()
         {
-            // ===================================================================================
+            // 타이틀
+            {
+                Text = RString.String_Btn_Name_Clear_Ext;
+            }
+
             // 라벨 초기화
-            nameFrm2LblContext1.Text = Properties.Resources.String_TItle_NameForm_Title1;
-            nameFrm2LblContext2.Text = Properties.Resources.String_Title_NameForm_Title2;
-            // ===================================================================================
+            {
+                nameFrm2LblContext1.Text = RString.String_TItle_NameForm_Title1;
+                nameFrm2LblContext2.Text = RString.String_Title_NameForm_Title2;
+            }
         }
 
         /// <summary>

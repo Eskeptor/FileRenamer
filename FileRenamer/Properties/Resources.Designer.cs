@@ -332,6 +332,24 @@ namespace FileRenamer.Properties {
         }
         
         /// <summary>
+        ///   뒤과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Menu_Back {
+            get {
+                return ResourceManager.GetString("String_Menu_Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   앞과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string String_Menu_Front {
+            get {
+                return ResourceManager.GetString("String_Menu_Front", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   파일을 읽어왔습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string String_Success_FileLoad {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RString = FileRenamer.Properties.Resources;
 
 namespace FileRenamer
 {
@@ -23,7 +24,7 @@ namespace FileRenamer
 
         private void InitControl()
         {
-            string[] STR_DIRECT = new string[2] { "앞", "뒤" };
+            string[] STR_DIRECT = new string[2] { RString.String_Menu_Front, RString.String_Menu_Back };
             nameFrmCBoxDirect.Items.AddRange(STR_DIRECT);
             nameFrmCBoxDirect.SelectedIndex = 0;
         }
@@ -39,14 +40,14 @@ namespace FileRenamer
             switch (mFormType)
             {
                 case Global.FormType.AddName:
-                    Text = Properties.Resources.String_Title_FormType_AddName;
-                    nameFrmLblContext.Text = Properties.Resources.String_Label_FormType_AddName;
+                    Text = RString.String_Title_FormType_AddName;
+                    nameFrmLblContext.Text = RString.String_Label_FormType_AddName;
                     nameFrmLblPos.Visible = true;
                     nameFrmCBoxDirect.Visible = true;
                     break;
                 case Global.FormType.ChangeExtension:
-                    Text = Properties.Resources.String_Title_FormType_ChangeExtension;
-                    nameFrmLblContext.Text = Properties.Resources.String_Label_FormType_ChangeExtension;
+                    Text = RString.String_Title_FormType_ChangeExtension;
+                    nameFrmLblContext.Text = RString.String_Label_FormType_ChangeExtension;
                     nameFrmLblPos.Visible = false;
                     nameFrmCBoxDirect.Visible = false;
                     break;

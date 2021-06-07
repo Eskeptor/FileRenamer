@@ -6,9 +6,9 @@
  1) Many files can be renamed easily.
  2) C# (.NET Framework 4.7.2)
 ```
-## What's New? (Last updated 2021.04.05) - Build 1.0.0.2
+## What's New? (Last updated 2021.06.07) - Build 1.0.0.3
 ```
- 1) Bug Fix (Extension Change)
+ 1) Add Drag And Drop
 ```
 ## Lasted Update List
 [View Lists](./UPDATE.md)
@@ -37,4 +37,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ## Good Bye!!
-Compiled by Visual Studio 2019 Community 16.7.6
+Compiled by Visual Studio 2019 Community 16.9.3

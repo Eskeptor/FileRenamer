@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Text;
 using System.Collections.Generic;
+using RString = FileRenamer.Properties.Resources;
 
 namespace FileRenamer
 {
@@ -25,52 +26,52 @@ namespace FileRenamer
         /// </summary>
         public void InitControls()
         {
-            // ===================================================================================
             // 다이얼로그 이름 설정
-            string strName = string.Format("{0} {1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString(),
-                                                      System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            this.Text = strName;
-            // ===================================================================================
+            {
+                string strName = string.Format("{0} {1}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString(),
+                                                          System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                Text = strName;
+            }
 
 
-            // ===================================================================================
             // 버튼 문자열 리소스 연결
-            btnLoad.Text = Properties.Resources.String_Btn_Load;
-            btnClearList.Text = Properties.Resources.String_Btn_Clear_List;
-            btnRestore.Text = Properties.Resources.String_Btn_Restore;
-            btnNameAddFront.Text = Properties.Resources.String_Btn_Name_Add;
-            btnSelDel.Text = Properties.Resources.String_Btn_SelectItem_Del;
-            btnNameClear.Text = Properties.Resources.String_Btn_Name_Clear;
-            btnNameClearExt.Text = Properties.Resources.String_Btn_Name_Clear_Ext;
-            btnNumFix.Text = Properties.Resources.String_Btn_Num_Fix;
-            btnNumAdd.Text = Properties.Resources.String_Btn_Num_Add;
-            btnSelUp.Text = Properties.Resources.String_Btn_SelectItem_Up;
-            btnSelDown.Text = Properties.Resources.String_Btn_SelectItem_Down;
-            btnChangeExtension.Text = Properties.Resources.String_Btn_Extension_Change;
-            btnDelExtension.Text = Properties.Resources.String_Btn_Extension_Delete;
-            btnApply.Text = Properties.Resources.String_Btn_Apply;
-            // ===================================================================================
+            {
+                btnLoad.Text = RString.String_Btn_Load;
+                btnClearList.Text = RString.String_Btn_Clear_List;
+                btnRestore.Text = RString.String_Btn_Restore;
+                btnNameAddFront.Text = RString.String_Btn_Name_Add;
+                btnSelDel.Text = RString.String_Btn_SelectItem_Del;
+                btnNameClear.Text = RString.String_Btn_Name_Clear;
+                btnNameClearExt.Text = RString.String_Btn_Name_Clear_Ext;
+                btnNumFix.Text = RString.String_Btn_Num_Fix;
+                btnNumAdd.Text = RString.String_Btn_Num_Add;
+                btnSelUp.Text = RString.String_Btn_SelectItem_Up;
+                btnSelDown.Text = RString.String_Btn_SelectItem_Down;
+                btnChangeExtension.Text = RString.String_Btn_Extension_Change;
+                btnDelExtension.Text = RString.String_Btn_Extension_Delete;
+                btnApply.Text = RString.String_Btn_Apply;
+            }
 
 
-            // ===================================================================================
             // 버튼 Enabler
-            InitButton(false);
-            // ===================================================================================
+            {
+                InitButton(false);
+            }
 
 
-            // ===================================================================================
             // 리스트 초기화
-            listView.Columns.Add(Properties.Resources.String_List_CurName, (int)Global.ListSize.CurName);
-            listView.Columns.Add(Properties.Resources.String_List_ReName, (int)Global.ListSize.ReName);
-            listView.Columns.Add(Properties.Resources.String_List_FilePath, (int)Global.ListSize.FilePath);
-            listView.Columns.Add(Properties.Resources.String_List_FullPath, (int)Global.ListSize.FullPath);
-            listView.Columns.Add(Properties.Resources.String_List_FileSize, (int)Global.ListSize.FileSize);
-            listView.Columns.Add(Properties.Resources.String_List_ModifyTime, (int)Global.ListSize.ModifyTime);
-            listView.Columns.Add(Properties.Resources.String_List_CreateTime, (int)Global.ListSize.CreateTime);
+            {
+                listView.Columns.Add(RString.String_List_CurName, (int)Global.ListSize.CurName);
+                listView.Columns.Add(RString.String_List_ReName, (int)Global.ListSize.ReName);
+                listView.Columns.Add(RString.String_List_FilePath, (int)Global.ListSize.FilePath);
+                listView.Columns.Add(RString.String_List_FullPath, (int)Global.ListSize.FullPath);
+                listView.Columns.Add(RString.String_List_FileSize, (int)Global.ListSize.FileSize);
+                listView.Columns.Add(RString.String_List_ModifyTime, (int)Global.ListSize.ModifyTime);
+                listView.Columns.Add(RString.String_List_CreateTime, (int)Global.ListSize.CreateTime);
 
-            for (int i = (int)Global.ListColumn.FullPath; i <= (int)Global.ListColumn.CreateTime; i++)
-                listView.Columns[i].Width = 0;
-            // ===================================================================================
+                for (int i = (int)Global.ListColumn.FullPath; i <= (int)Global.ListColumn.CreateTime; i++)
+                    listView.Columns[i].Width = 0;
+            }
 
         }
 
@@ -142,6 +143,56 @@ namespace FileRenamer
         }
 
         /// <summary>
+        /// 메인 ListView에 파일 목록을 추가하는 함수
+        /// </summary>
+        /// <param name="strFileNames">추가할 파일 경로 목록</param>
+        private void AddList(string[] strFileNames)
+        {
+            if (strFileNames.Length <= 0)
+                return;
+
+            bool bIsContinue = false;
+            foreach (string str in strFileNames)
+            {
+                FileObject fileObject = new FileObject();
+                fileObject.SetFile(str);
+
+                foreach (FileObject file in mFileList)
+                {
+                    if (fileObject.FileFullPath.CompareTo(file.FileFullPath) == 0)
+                    {
+                        bIsContinue = true;
+                        break;
+                    }
+                }
+
+                if (!bIsContinue)
+                    mFileList.Add(fileObject);
+                else
+                    bIsContinue = false;
+            }
+
+            RefreshList();
+
+            if (mFileList.Count > 0)
+            {
+                btnClearList.Enabled = true;
+                btnRestore.Enabled = true;
+                btnNameAddFront.Enabled = true;
+                btnSelDel.Enabled = true;
+                btnNameClear.Enabled = true;
+                btnNameClearExt.Enabled = true;
+                //btnNumFix.Enabled = true;
+                btnNumAdd.Enabled = true;
+                btnChangeExtension.Enabled = true;
+                btnDelExtension.Enabled = true;
+                btnApply.Enabled = true;
+                menuFileImportNameList.Enabled = true;
+                menuFileExportNameList.Enabled = true;
+            }
+        }
+
+        /// <summary>
         /// 불러오기 버튼
         /// </summary>
         /// <param name="sender"></param>
@@ -152,45 +203,7 @@ namespace FileRenamer
 
             if (dialogResult == DialogResult.OK)
             {
-                bool bIsContinue = false;
-                foreach (string str in openFileDialog.FileNames)
-                {
-                    FileObject fileObject = new FileObject();
-                    fileObject.SetFile(str);
-
-                    foreach (FileObject file in mFileList)
-                    {
-                        if (fileObject.FileFullPath.CompareTo(file.FileFullPath) == 0)
-                        {
-                            bIsContinue = true;
-                            break;
-                        }
-                    }
-
-                    if (!bIsContinue)
-                        mFileList.Add(fileObject);
-                    else
-                        bIsContinue = false;
-                }
-
-                RefreshList();
-
-                if (mFileList.Count > 0)
-                {
-                    btnClearList.Enabled = true;
-                    btnRestore.Enabled = true;
-                    btnNameAddFront.Enabled = true;
-                    btnSelDel.Enabled = true;
-                    btnNameClear.Enabled = true;
-                    btnNameClearExt.Enabled = true;
-                    //btnNumFix.Enabled = true;
-                    btnNumAdd.Enabled = true;
-                    btnChangeExtension.Enabled = true;
-                    btnDelExtension.Enabled = true;
-                    btnApply.Enabled = true;
-                    menuFileImportNameList.Enabled = true;
-                    menuFileExportNameList.Enabled = true;
-                }
+                AddList(openFileDialog.FileNames);
             }
         }
 
@@ -580,7 +593,6 @@ namespace FileRenamer
             BtnLoad_Click(null, null);
         }
 
-
         /// <summary>
         /// 메인 파일 List - 선택 이벤트
         /// </summary>
@@ -648,19 +660,19 @@ namespace FileRenamer
                     {
                         writer.Write(strResult);
                     }
-                    MessageBox.Show(Properties.Resources.String_Success_FileSave, Properties.Resources.String_Title_FileSave);
+                    MessageBox.Show(RString.String_Success_FileSave, RString.String_Title_FileSave);
                 }
                 catch (UnauthorizedAccessException)
                 { 
-                    MessageBox.Show(Properties.Resources.String_Error_Unauthor, Properties.Resources.String_Error); 
+                    MessageBox.Show(RString.String_Error_Unauthor, RString.String_Error); 
                 }
                 catch (DirectoryNotFoundException)
                 {
-                    MessageBox.Show(Properties.Resources.String_Error_DirNotFound, Properties.Resources.String_Error);
+                    MessageBox.Show(RString.String_Error_DirNotFound, RString.String_Error);
                 }
                 catch (IOException)
                 {
-                    MessageBox.Show(Properties.Resources.String_Error_IOException, Properties.Resources.String_Error);
+                    MessageBox.Show(RString.String_Error_IOException, RString.String_Error);
                 }
             }
         }
@@ -691,19 +703,19 @@ namespace FileRenamer
                         }
                     }
                     RefreshList();
-                    MessageBox.Show(Properties.Resources.String_Success_FileLoad, Properties.Resources.String_Title_FileLoad);
+                    MessageBox.Show(RString.String_Success_FileLoad, RString.String_Title_FileLoad);
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    MessageBox.Show(Properties.Resources.String_Error_Unauthor, Properties.Resources.String_Error);
+                    MessageBox.Show(RString.String_Error_Unauthor, RString.String_Error);
                 }
                 catch (DirectoryNotFoundException)
                 {
-                    MessageBox.Show(Properties.Resources.String_Error_DirNotFound, Properties.Resources.String_Error);
+                    MessageBox.Show(RString.String_Error_DirNotFound, RString.String_Error);
                 }
                 catch (IOException)
                 {
-                    MessageBox.Show(Properties.Resources.String_Error_IOException, Properties.Resources.String_Error);
+                    MessageBox.Show(RString.String_Error_IOException, RString.String_Error);
                 }
             }
         }
@@ -751,6 +763,11 @@ namespace FileRenamer
             return bResult;
         }
 
+        /// <summary>
+        /// 메뉴 - 정보
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void menuInfo_Click(object sender, EventArgs e)
         {
             using (AboutBox box = new AboutBox())
@@ -783,6 +800,33 @@ namespace FileRenamer
                 }
             }
             catch (Exception) { }
+        }
+
+        /// <summary>
+        /// 리스트 - 드래그 드랍
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] strFileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
+                AddList(strFileNames);
+            }
+        }
+
+        /// <summary>
+        /// 리스트 - 드래그 시작 (진입)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
         }
     }
 }

@@ -208,6 +208,12 @@
   <data name="String_List_ReName" xml:space="preserve">
     <value>바꿀 이름</value>
   </data>
+  <data name="String_Menu_Back" xml:space="preserve">
+    <value>뒤</value>
+  </data>
+  <data name="String_Menu_Front" xml:space="preserve">
+    <value>앞</value>
+  </data>
   <data name="String_Success_FileLoad" xml:space="preserve">
     <value>파일을 읽어왔습니다.</value>
   </data>
