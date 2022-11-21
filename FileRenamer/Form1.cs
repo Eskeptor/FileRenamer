@@ -505,21 +505,43 @@ namespace FileRenamer
         /// <param name="e"></param>
         private void BtnApply_Click(object sender, EventArgs e)
         {
+            StringBuilder stringBuilder = new StringBuilder();
+
             foreach (FileObject file in mFileList)
             {
-                if (File.Exists(file.BackupFileFullPath))
+                try
                 {
-                    File.Move(file.BackupFileFullPath, file.FileFullPath);
-                    file.BackupFileName = file.FileName;
-                    file.BackupFileExtension = file.FileExtension;
-                    file.BackupFilePath = file.FilePath;
+                    if (string.IsNullOrEmpty(file.FileName.Trim()) == false)
+                    {
+                        if (File.Exists(file.BackupFileFullPath))
+                        {
+                            File.Move(file.BackupFileFullPath, file.FileFullPath);
+                            file.BackupFileName = file.FileName;
+                            file.BackupFileExtension = file.FileExtension;
+                            file.BackupFilePath = file.FilePath;
+                        }
+                        else
+                        {
+                            file.BackupFileName = RString.String_Error_FileNotExist;
+                            file.BackupFileExtension = "";
+                        }
+                    }
+                    else
+                    {
+                        stringBuilder.AppendLine($"파일 이름 없음 ({file.BackupFileName})");
+                    }
                 }
-                else
+                catch
                 {
-                    file.BackupFileName = Properties.Resources.String_Error_FileNotExist;
-                    file.BackupFileExtension = "";
+                    stringBuilder.AppendLine($"{file.FileName} ({file.BackupFileName})");
                 }
             }
+
+            if (stringBuilder.Length > 0)
+            {
+                MessageBox.Show($"{RString.String_Msg_ApplyFailed}\n{stringBuilder}", RString.String_Msg_Title_Warning);
+            }
+
             RefreshList(true);
         }
 
@@ -785,11 +807,22 @@ namespace FileRenamer
         {
             try
             {
-                int nCurSelIndex = listView.SelectedItems[0].Index;
-
-                if (nCurSelIndex != 0)
+                if (listView.SelectedItems != null &&
+                    listView.SelectedItems.Count > 0)
                 {
-                    mFileList.RemoveAt(nCurSelIndex);
+                    int[] nArrReverseIdx = new int[listView.SelectedItems.Count];
+                    
+                    for (int i = 0; i < listView.SelectedItems.Count; i++)
+                    {
+                        nArrReverseIdx[i] = listView.SelectedItems[i].Index;
+                    }
+                    Array.Sort(nArrReverseIdx, (nNum1, nNum2) => (nNum1 > nNum2) ? -1 : 1);
+
+                    for (int i = 0; i < listView.SelectedItems.Count; i++)
+                    {
+                        mFileList.RemoveAt(nArrReverseIdx[i]);
+                    }
+
                     RefreshList();
 
                     btnSelUp.Enabled = false;

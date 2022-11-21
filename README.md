@@ -4,11 +4,12 @@
 ## Features
 ```
  1) Many files can be renamed easily.
- 2) C# (.NET Framework 4.7.2)
+ 2) C# (.NET Framework 4.8)
 ```
-## What's New? (Last updated 2021.06.07) - Build 1.0.0.3
+## What's New? (Last updated 2022.11.21) - Build 1.1.0.0
 ```
- 1) Add Drag And Drop
+ 1) Bug fix - An exception when the file name is empty.
+ 2) Bug fix - An issue that was not deleted when there was more than one selected item when performing the Delete Selected function.
 ```
 ## Lasted Update List
 [View Lists](./UPDATE.md)
@@ -16,7 +17,7 @@
 ## Development environment
 ```
  Operating System : Windows 10 Pro 64bit
- CPU : AMD Ryzen R5 3600
+ CPU : AMD Ryzen R5 5600X
  RAM : 32GB
  VGA : AMD Radeon RX 5700 XT
  IDE : Visual Studio 2019 Community 16.7.6

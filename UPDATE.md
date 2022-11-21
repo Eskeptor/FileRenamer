@@ -1,3 +1,9 @@
+## Update 2022.11.21 - Build 1.1.0.0
+```
+ 1) Bug fix - An exception when the file name is empty.
+ 2) Bug fix - An issue that was not deleted when there was more than one selected item when performing the Delete Selected function.
+```
+
 ## Update 2021.06.07 - Build 1.0.0.3
 ```
  1) Add Drag And Drop
